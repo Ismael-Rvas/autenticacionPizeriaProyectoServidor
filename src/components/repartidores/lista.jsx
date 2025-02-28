@@ -4,40 +4,61 @@ import Modal from "@/components/modal";
 import RepartidorInsertar from "./insertar";
 import RepartidorModificar from "./modificar";
 import RepartidorEliminar from "./eliminar";
-
+import { auth } from "@/auth";
 
 export default async function Repartidores() {
     const repartidores = await obtenerRepartidores()
-
-
-
+    const session = await auth();
     return (
-        <div className="flex flex-col gap-4">
-            <Modal openElement={<p className="inline p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Insertar</p>}>
-                <RepartidorInsertar />
-            </Modal>
-            {
-                repartidores.map(repartidor =>
-                    <div key={repartidor.id} className="p-4 bg-slate-200 rounded-lg">
-                        <div className="flex flex-col gap-4">
-                            <Link href={`/repartidores/${repartidor.id}`} className="font-bold cursor-pointer">
-                                {repartidor.nombre}
-                            </Link>
-                            <p>Teléfono: {repartidor.telefono}</p>
+        <div className="flex flex-col gap-6">
+            {session?.user?.role === "ADMIN" && (
+                <Modal
+                    openElement={
+                        <button className="inline-block px-4 py-2 rounded-lg bg-indigo-500 text-white shadow-md hover:bg-indigo-600 transition-colors duration-150">
+                            Insertar
+                        </button>
+                    }
+                >
+                    <RepartidorInsertar />
+                </Modal>
+            )}
+            {repartidores.map((repartidor) => (
+                <div key={repartidor.id} className="p-6 mb-6 bg-slate-200 rounded-lg shadow-lg">
+                    <div className="flex flex-col gap-2">
+                        <Link
+                            href={`/repartidores/${repartidor.id}`}
+                            className="text-lg font-semibold text-gray-800 hover:text-indigo-600 transition-colors duration-150"
+                        >
+                            {repartidor.nombre}
+                        </Link>
+                        <p className="text-gray-600">Teléfono: {repartidor.telefono}</p>
+                        {session?.user?.role === "ADMIN" && (
+                            <div className="flex gap-4 mt-2">
+                                <Modal
+                                    openElement={
+                                        <button className="px-4 py-2 rounded-lg bg-yellow-500 text-white shadow-md hover:bg-yellow-600 transition-colors duration-150">
+                                            Modificar
+                                        </button>
+                                    }
+                                >
+                                    <RepartidorModificar repartidor={repartidor} />
+                                </Modal>
 
-                            <Modal openElement={<span className="p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Modificar</span>}>
-                                <RepartidorModificar repartidor={repartidor} />
-                            </Modal>
-
-                            <Modal openElement={<p className="inline p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Eliminar</p>}>
-                                <RepartidorEliminar repartidor={repartidor} />
-                            </Modal>
-
-                        </div>
-                        <hr />
+                                <Modal
+                                    openElement={
+                                        <button className="px-4 py-2 rounded-lg bg-red-500 text-white shadow-md hover:bg-red-600 transition-colors duration-150">
+                                            Eliminar
+                                        </button>
+                                    }
+                                >
+                                    <RepartidorEliminar repartidor={repartidor} />
+                                </Modal>
+                            </div>
+                        )}
                     </div>
-                )
-            }
+                    <hr className="mt-4" />
+                </div>
+            ))}
         </div>
     );
 }

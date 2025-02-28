@@ -17,7 +17,10 @@ async function Header() {
                 {session?.user?.role === 'ADMIN'
                     && <Link href="/admin" className="text-white font-bold">Admin panel</Link>
                 }
+                {session?.user?.role === 'USER'
+                &&
                 <Link href="/dashboard" className="text-white font-bold">Dashboard</Link>
+            }
                 <Link href="/about" className="text-white font-bold">About</Link>
                 <Link href="/repartidores" className="text-white font-bold">Repartidores</Link>
                 <Link href="/pedidos" className="text-white font-bold">Pedidos</Link>

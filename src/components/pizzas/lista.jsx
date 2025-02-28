@@ -4,39 +4,64 @@ import Modal from "@/components/modal";
 import PizzaInsertar from "./insertar";
 import PizzaModificar from "./modificar";
 import PizzaEliminar from "./eliminar";
-
+import { auth } from "@/auth";
 
 export default async function Pizzas() {
-    const pizzas = await obtenerPizzas()
+  const pizzas = await obtenerPizzas();
+  const session = await auth();
 
-    return (
-        <div className="flex flex-col gap-4">
-            <Modal openElement={<p className="inline p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Insertar</p>}>
-                <PizzaInsertar />
-            </Modal>
+  return (
+    <div className="flex flex-col gap-6">
+      {session?.user?.role === "ADMIN" && (
+        <Modal
+          openElement={
+            <button className="inline-block px-4 py-2 rounded-lg bg-blue-600 text-white shadow-md hover:bg-blue-700 transition-colors duration-150">
+              Insertar
+            </button>
+          }
+        >
+          <PizzaInsertar />
+        </Modal>
+      )}
 
-            {
-                pizzas.map(pizza =>
-                    <div key={pizza.id} className="p-4 mb-4 bg-slate-200 rounded-lg">
-                        <div className="flex flex-col gap-4">
-                            <Link href={`/pizzas/${pizza.id}`} className="font-bold cursor-pointer">
-                                {pizza.nombre}
-                            </Link>
-                            <p>{pizza.precio} €</p>
+      {pizzas.map((pizza) => (
+        <div key={pizza.id} className="p-6 mb-6 bg-white rounded-lg shadow-lg">
+          <div className="flex flex-col gap-2">
+            <Link
+              href={`/pizzas/${pizza.id}`}
+              className="text-lg font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-150"
+            >
+              {pizza.nombre}
+            </Link>
+            <p className="text-gray-600">Precio: {pizza.precio} €</p>
 
-                            <Modal openElement={<p className="inline p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Modificar</p>}>
-                                <PizzaModificar pizza={pizza} />
-                            </Modal>
+            {session?.user?.role === "ADMIN" && (
+              <div className="flex gap-4 mt-2">
+                <Modal
+                  openElement={
+                    <button className="px-4 py-2 rounded-lg bg-yellow-500 text-white shadow-md hover:bg-yellow-600 transition-colors duration-150">
+                      Modificar
+                    </button>
+                  }
+                >
+                  <PizzaModificar pizza={pizza} />
+                </Modal>
 
-                            <Modal openElement={<p className="inline p-2 rounded-lg bg-indigo-500 text-white cursor-pointer">Eliminar</p>}>
-                                <PizzaEliminar pizza={pizza} />
-                            </Modal>
-
-                        </div>
-                        <hr />
-                    </div>
-                )
-            }
+                <Modal
+                  openElement={
+                    <button className="px-4 py-2 rounded-lg bg-red-500 text-white shadow-md hover:bg-red-600 transition-colors duration-150">
+                      Eliminar
+                    </button>
+                  }
+                >
+                  <PizzaEliminar pizza={pizza} />
+                </Modal>
+              </div>
+            )}
+          </div>
+          <hr className="mt-4" />
         </div>
-    );
+      ))}
+    </div>
+  );
 }
