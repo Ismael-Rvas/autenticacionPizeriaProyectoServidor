@@ -2,12 +2,15 @@
 
 function About() {
   return (
-    <>
-      <h1 className="text-3xl font-bold">Página About</h1>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    <div className="max-w-2xl mx-auto p-6 bg-gray-100 rounded-lg shadow-md mt-32">
+      <h1 className="text-4xl font-extrabold mb-4 text-center">Página About</h1>
+      <p className="text-lg text-gray-700 text-left">
+        Esto es una página abierta al público, sin tener que iniciar sesión para verla.
+        Esta página sirve de prueba para probar el login y todas sus funciones.
       </p>
-    </>
+      <hr className="my-4" />
+      <strong>Puedes cambiar la vista de estas páginas en la constante "config" del <span className="text-yellow-500"> middleware.js</span>.</strong>
+    </div>
   )
 }
 
