@@ -3,7 +3,7 @@ import Link from "next/link";
 export default async function Home() {
   return (
     <>
-      <h1 className="text-3xl font-bold">Página principal</h1>
+      <h1 className="text-3xl font-bold">Página principal 🍕</h1>
 
       <div className="flex flex-col items-start">
         <Link href="/admin" className="text-blue-700">
@@ -20,6 +20,15 @@ export default async function Home() {
         </Link>
         <Link href="/about" className="text-blue-700">
           About
+        </Link>
+        <Link href="/repartidores" className="block text-2xl font-bold">
+        REPARTIDORES
+        </Link>
+        <Link href="/pedidos" className="block text-2xl font-bold">
+        PEDIDOS
+        </Link>
+        <Link href="/pizzas" className="block text-2xl font-bold">
+        PIZZAS
         </Link>
       </div>
 

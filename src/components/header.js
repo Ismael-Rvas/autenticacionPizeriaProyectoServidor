@@ -19,6 +19,9 @@ async function Header() {
                 }
                 <Link href="/dashboard">Dashboard</Link>
                 <Link href="/about">About</Link>
+                <Link href="/repartidores">Repartidores</Link>
+                <Link href="/pedidos">Pedidos</Link>
+                <Link href="/pizzas">Pizzas</Link>
             </nav>
             <div className='flex gap-4'>
                 {session
