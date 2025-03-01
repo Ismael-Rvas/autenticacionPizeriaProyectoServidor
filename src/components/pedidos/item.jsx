@@ -8,23 +8,23 @@ export default async function Pedido({ id }) {
     if (!pedido) notFound()
 
     return (
-        <div>
-            <div>
-                {new Date(pedido.fecha_hora).toLocaleString()}
-            </div>
-            <div>Nombre del cliente: {pedido.nombre_cliente}</div>
-            <div>Dirección del cliente: {pedido.direccion_cliente}</div>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            <div className="bg-white rounded-lg shadow-lg p-6 w-1/3 text-center">
+                <div className="font-bold text-xl mb-2">Nombre:</div>
+                <div className="text-gray-700 text-lg mb-4">{pedido.nombre_cliente}</div>
+                <div className="font-bold text-xl mb-2">Dirección:</div>
+                <div className="text-gray-700 text-lg">{pedido.direccion_cliente}</div>
 
-            <div>
-                <p className="font-bold text-xl">Repartidor</p>
-                {pedido.repartidor?.nombre}
-            </div>
+                <div className="font-bold text-xl mb-2">Repartidor:</div>
+                <div className="text-gray-700 text-lg">{pedido.repartidor?.nombre}</div>
 
-            <div>
-                <p className="font-bold text-xl">Pizzas</p>
-                {pedido.pizzas?.map(pizza =>
-                    <p key={pizza.id}>{pizza.nombre}</p>
-                )}</div>
+                <div className="font-bold text-xl mb-2">Pizzas:</div>
+                <ul className="list-disc">
+                    {pedido.pizzas?.map(pizza =>
+                        <li key={pizza.id}>{pizza.nombre}</li>
+                    )}
+                </ul>
+            </div>
         </div>
     );
 }
