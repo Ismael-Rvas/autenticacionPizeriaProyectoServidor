@@ -11,7 +11,6 @@ export default {
         Discord,
         Credentials({
             async authorize(credentials) {
-                console.log('AUTHORIZE')
                 const user = await getUserByEmail(credentials.email)
                 return user
             },

@@ -5,8 +5,6 @@ import authConfig from "@/auth.config";
 const { auth } = NextAuth(authConfig);
 
 export default auth((req) => {
-  console.log(`MIDDLEWARE`, req.nextUrl.pathname, req.auth);
-
   if (!req.auth) {
     const callbackUrl = req.nextUrl.pathname + req.nextUrl.search
     const encodedCallbackUrl = encodeURIComponent(callbackUrl);

@@ -22,12 +22,17 @@ export default async function Home() {
           About
         </Link>
         <h2 className="text-2xl font-bold">Tablas Pizzeria:</h2>
+        
         <Link href="/repartidores" className="block p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600">
           Repartidores
         </Link>
+        {session?.user?.role === 'ADMIN'
+                    &&
         <Link href="/pedidos" className="block p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600">
           Pedidos
         </Link>
+        }
+
         <Link href="/pizzas" className="block p-4 rounded-lg bg-blue-500 text-white hover:bg-blue-600">
           Pizzas
         </Link>
