@@ -121,11 +121,14 @@ export async function logout() {
 export async function insertarRepartidor(formData) {
     const nombre = formData.get('nombre')
     const telefono = formData.get('telefono')
+    const foto = formData.get('foto') || null
+
 
     await prisma.repartidor.create({
         data: {
             nombre: nombre,
             telefono: telefono,
+            foto: foto
         }
     })
 
@@ -139,7 +142,7 @@ export async function modificarRepartidor(formData) {
     const id = Number(formData.get('id'))
     const nombre = formData.get('nombre')
     const telefono = formData.get('telefono')
-
+    const foto = formData.get('foto') || null
 
     await prisma.repartidor.update({
         where: {
@@ -148,6 +151,7 @@ export async function modificarRepartidor(formData) {
         data: {
             nombre: nombre,
             telefono: telefono,
+            foto: foto
         }
     })
 
@@ -259,12 +263,14 @@ export async function eliminarPedido(prevState, formData) {
 export async function insertarPizza(formData) {
     const nombre = formData.get('nombre')
     const precio = Number(formData.get('precio'))
+    const foto = formData.get('foto') || null
 
 
     await prisma.pizza.create({
         data: {
             nombre: nombre,
             precio: precio,
+            foto: foto
         }
     })
 
@@ -279,7 +285,8 @@ export async function modificarPizza(formData) {
     const id = Number(formData.get('id'))
     const nombre = formData.get('nombre')
     const precio = Number(formData.get('precio'))
-    
+    const foto = formData.get('foto') || null
+
     await prisma.pizza.update({
         where: {
             id: id
@@ -287,6 +294,7 @@ export async function modificarPizza(formData) {
         data: {
             nombre: nombre,
             precio: precio,
+            foto: foto
         }
     })
 
